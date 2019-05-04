@@ -12,12 +12,12 @@ Command Line: ciphxor [-c key] [-d key] inputname.txt [-o outputname.txt]
  */
 
 
-import org.kohsuke.args4j
+//import org.kohsuke.args4j
 
-class parser {
-    @Option( name = "-z", usage = "Choose packing or unpacking", forbids = ["-u"])
-    var z: Boolean = false
-}
+//class parser {
+//    @Option( name = "-c", usage = "", forbids = ["-c"])
+//    var z: Boolean = false
+//}
 
 
 class EncoderXOR {
