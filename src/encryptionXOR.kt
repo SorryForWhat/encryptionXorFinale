@@ -17,6 +17,7 @@ Command Line: ciphxor [-c key] [-d key] inputname.txt [-o outputname.txt]
 //class parser {
 //    @Option( name = "-c", usage = "", forbids = ["-c"])
 //    var z: Boolean = false
+
 //}
 
 
