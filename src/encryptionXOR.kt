@@ -10,7 +10,9 @@
 Command Line: ciphxor [-c key] [-d key] inputname.txt [-o outputname.txt]
 Кроме самой программы, следует написать автоматические тесты к ней.
  */
-
+import java.io.BufferedWriter
+import java.io.File
+import java.io.FileWriter
 
 //import org.kohsuke.args4j
 
@@ -19,6 +21,18 @@ Command Line: ciphxor [-c key] [-d key] inputname.txt [-o outputname.txt]
 //    var z: Boolean = false
 //}
 
+
+
+//fun stringBuilder(key: String, input: String, output: String) {
+//    val inputText = File(input).readLines()
+//    val outputFile = File(output)
+//    val result: List<String>
+//    result = (inputText, key)
+//    val writer = BufferedWriter(FileWriter(outputFile, true))
+//    for (i in result)
+//        writer.write(i)
+//    writer.close()
+//}
 
 class EncoderXOR {
     fun decryption() {
