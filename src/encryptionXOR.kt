@@ -26,10 +26,9 @@ class EncryptionXOR{
             //Разделяем по нескольким парам(xor операция)
             val output = inputText.substring(i, i + 2)
             val decimal = output.toInt(16)
-            hexToPairs += decimal.toChar() //stringBuilder
+            hexToPairs += decimal.toChar()
             i += 2
         }
-        var decryptedText = ""
         var keyItr = 0
         for (i in 0 until hexToPairs.length) {
             val temp = hexToPairs[i].toInt() xor key[keyItr].toInt()
@@ -51,7 +50,7 @@ class EncryptionXOR{
         for (i in 0 until inputText.length) {
             //Разделяем сетку по нескольким парам(xor операция)
             val temp = inputText[i].toInt() xor key[keyItr].toInt()
-            writer.write(String.format("%02x", temp.toByte()))//stringBuilder
+            writer.write(String.format("%02x", temp.toByte()))
             keyItr++
             if (keyItr >= key.length) {
                 keyItr = 0
@@ -61,13 +60,10 @@ class EncryptionXOR{
     }
 }
 fun main(args: Array<String>) {
-
     if (args[0] ==  "-d")  {
         return  EncryptionXOR().decryption(args [1],args [2],args[4])
-
     }
     if (args[0] ==  "-c")  {
         return  EncryptionXOR().encryption(args [1],args [2],args[4])
     }
-
 }
