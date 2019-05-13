@@ -10,41 +10,21 @@
 Command Line: ciphxor [-c key] [-d key] inputname.txt [-o outputname.txt]
 Кроме самой программы, следует написать автоматические тесты к ней.
  */
+package src
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
 
-//import org.kohsuke.args4j
-
-//class parser {
-//    @Option( name = "-c", usage = "", forbids = ["-c"])
-//    var z: Boolean = false
-//}
-
-
-
-//fun stringBuilder(key: String, input: String, output: String) {
-//    val inputText = File(input).readLines()
-//    val outputFile = File(output)
-//    val result: List<String>
-//    result = (inputText, key)
-//    val writer = BufferedWriter(FileWriter(outputFile, true))
-//    for (i in result)
-//        writer.write(i)
-//    writer.close()
-//}
-
-class EncoderXOR {
-    fun decryption() {
-        print("Enter message: ")
-        val msg = readLine()!!
-        print("Enter key: ")
-        val key = readLine()!!
+class EncryptionXOR{
+    fun decryption(key: String, inputText: String, outputText: String) {
+        val inputText = File(inputText).readLines().toString()
+        val outputFile = File(outputText)
+        val writer = BufferedWriter(FileWriter(outputFile, true))
         var hexToPairs = ""
         var i = 0
-        while (i < msg.length - 1) {
+        while (i < inputText.length - 1) {
             //Разделяем по нескольким парам(xor операция)
-            val output = msg.substring(i, i + 2)
+            val output = inputText.substring(i, i + 2)
             val decimal = output.toInt(16)
             hexToPairs += decimal.toChar() //stringBuilder
             i += 2
@@ -53,45 +33,41 @@ class EncoderXOR {
         var keyItr = 0
         for (i in 0 until hexToPairs.length) {
             val temp = hexToPairs[i].toInt() xor key[keyItr].toInt()
-            decryptedText += temp.toChar()
+            writer.write(temp)
             keyItr++
             if (keyItr >= key.length) {
                 keyItr = 0
             }
         }
-        println("Decrypted Text: $decryptedText")
+
     }
-    fun encryption() {
-        print("Enter message: ")
-        val msg = readLine()!!
-        print("Enter key: ")
-        val key = readLine()!!
-        var encryptedText = ""
+
+    fun encryption(key: String, inputText: String, outputText: String) {
+        val inputText = File(inputText).readLines().toString()
+        val outputFile = File(outputText)
+        val writer = BufferedWriter(FileWriter(outputFile, true))
+
         var keyItr = 0
-        for (i in 0 until msg.length) {
+        for (i in 0 until inputText.length) {
             //Разделяем сетку по нескольким парам(xor операция)
-            val temp = msg[i].toInt() xor key[keyItr].toInt()
-            encryptedText += String.format("%02x", temp.toByte())//stringBuilder
+            val temp = inputText[i].toInt() xor key[keyItr].toInt()
+            writer.write(String.format("%02x", temp.toByte()))//stringBuilder
             keyItr++
             if (keyItr >= key.length) {
                 keyItr = 0
             }
         }
-        println("Encrypted Text: $encryptedText")
+
     }
 }
 fun main(args: Array<String>) {
-    print("Choose Operation(-c,-d):\n-c. Encryption\n-d. Decryption\n ")
-    val choice = readLine()!!
-    when (choice) {
-        "-c" -> {
-            println("===Encryption===")
-            EncoderXOR().encryption()
-        }
-        "-d" -> {
-            println("===Decryption===")
-            EncoderXOR().decryption()
-        }
-        else -> println("Invalid Choice")
+
+    if (args[0] ==  "-d")  {
+        return  EncryptionXOR().decryption(args [1],args [2],args[4])
+
     }
+    if (args[0] ==  "-c")  {
+        return  EncryptionXOR().encryption(args [1],args [2],args[4])
+    }
+
 }
