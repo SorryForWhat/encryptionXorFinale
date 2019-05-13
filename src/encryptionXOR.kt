@@ -16,15 +16,15 @@ import java.io.File
 import java.io.FileWriter
 
 class EncryptionXOR{
-    fun decryption(key: String, inputText: String, outputText: String) {
-        val inputText = File(inputText).readLines().toString()
-        val outputFile = File(outputText)
+    fun decryption(key: String, msg: String, output: String) {
+        val inputText = File(msg).readLines()
+        val outputFile = File(output)
         val writer = BufferedWriter(FileWriter(outputFile, true))
         var hexToPairs = ""
         var i = 0
-        while (i < inputText.length - 1) {
+        while (i < inputText.size - 1) {
             //Разделяем по нескольким парам(xor операция)
-            val output = inputText.substring(i, i + 2)
+            val output = inputText.toString().substring(i, i + 2)
             val decimal = output.toInt(16)
             hexToPairs += decimal.toChar()
             i += 2
@@ -41,13 +41,13 @@ class EncryptionXOR{
 
     }
 
-    fun encryption(key: String, inputText: String, outputText: String) {
-        val inputText = File(inputText).readLines().toString()
-        val outputFile = File(outputText)
+    fun encryption(key: String, msg: String, output: String) {
+        val inputText = File(msg).readLines()
+        val outputFile = File(output)
         val writer = BufferedWriter(FileWriter(outputFile, true))
 
         var keyItr = 0
-        for (i in 0 until inputText.length) {
+        for (i in 0 until inputText.size) {
             //Разделяем сетку по нескольким парам(xor операция)
             val temp = inputText[i].toInt() xor key[keyItr].toInt()
             writer.write(String.format("%02x", temp.toByte()))
