@@ -17,35 +17,42 @@ import java.io.FileWriter
 
 class EncryptionXOR{
     fun decryption(key: String, outputText: String, inputText: String) {
-        val msg = File(outputText).readLines().toString()
-        val output = File(inputText)
-        val writer = BufferedWriter(FileWriter(output, true))
-        var hexToPairs = ""
-        println(msg)
-        var i = 1
-        while (i < msg.length - 1) {
-            //Разделяем по нескольким парам(xor операция)
-            val new = msg.substring(i, i + 2)
-            val decimal = new.toInt(16)
-            hexToPairs += decimal.toChar()
-            i += 2
+        val msg1 = File(outputText).readLines()
+        var msg = ""
+        for (line in msg1) {
+            msg += line
         }
-        var keyItr = 0
-        for (i in 0 until hexToPairs.length) {
-            val temp = hexToPairs[i].toInt() xor key[keyItr].toInt()
-            writer.write(temp.toString())
-            keyItr++
-            if (keyItr >= key.length) {
-                keyItr = 0
+            val output = File(inputText)
+            val writer = BufferedWriter(FileWriter(output, true))
+            var hexToPairs = ""
+            var i = 0
+            while (i < msg.length) {
+                //Разделяем по нескольким парам(xor операция)
+                val new = msg.substring(i, i + 2)
+                val decimal = new.toInt(16)
+                hexToPairs += decimal.toChar()
+                i += 2
             }
-            writer.close()
-        }
+            var keyItr = 0
+            for (i in 0 until hexToPairs.length) {
+                val temp = hexToPairs[i].toInt() xor key[keyItr].toInt()
+                writer.write(temp.toChar().toString())
+                keyItr++
+                if (keyItr >= key.length) {
+                    keyItr = 0
+                }
 
-    }
+            }
+        writer.close()
+        }
 
     fun encryption(key: String, msg: String, output: String) {
-        val inputText = File(msg).readLines().toString()
+        val inputText1 = File(msg).readLines()
         val outputFile = File(output)
+        var inputText = ""
+        for (line in inputText1) {
+            inputText += line
+        }
         val writer = BufferedWriter(FileWriter(outputFile, true))
         var keyItr = 0
         for (i in 0 until inputText.length) {

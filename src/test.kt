@@ -9,10 +9,10 @@ import kotlin.test.assertTrue
 class Test {
     @Test
     fun encryptor(){
-        EncryptionXOR().encryption("123a", "src/res/inputText.txt", "src/res/outputText.txt")
+        EncryptionXOR().encryption("123", "src/res/inputText.txt", "src/res/outputText.txt")
     }
     @Test
     fun decryptor(){
-        EncryptionXOR().decryption("123a", "src/res/outputText.txt", "src/res/inputText.txt")
+        EncryptionXOR().decryption("123", "src/res/outputText.txt", "src/res/inputText.txt")
     }
 }
