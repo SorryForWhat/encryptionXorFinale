@@ -16,38 +16,39 @@ import java.io.File
 import java.io.FileWriter
 
 class EncryptionXOR{
-    fun decryption(key: String, msg: String, output: String) {
-        val inputText = File(msg).readLines()
-        val outputFile = File(output)
-        val writer = BufferedWriter(FileWriter(outputFile, true))
+    fun decryption(key: String, outputText: String, inputText: String) {
+        val msg = File(outputText).readLines().toString()
+        val output = File(inputText)
+        val writer = BufferedWriter(FileWriter(output, true))
         var hexToPairs = ""
-        var i = 0
-        while (i < inputText.size - 1) {
+        println(msg)
+        var i = 1
+        while (i < msg.length - 1) {
             //Разделяем по нескольким парам(xor операция)
-            val output = inputText.toString().substring(i, i + 2)
-            val decimal = output.toInt(16)
+            val new = msg.substring(i, i + 2)
+            val decimal = new.toInt(16)
             hexToPairs += decimal.toChar()
             i += 2
         }
         var keyItr = 0
         for (i in 0 until hexToPairs.length) {
             val temp = hexToPairs[i].toInt() xor key[keyItr].toInt()
-            writer.write(temp)
+            writer.write(temp.toString())
             keyItr++
             if (keyItr >= key.length) {
                 keyItr = 0
             }
+            writer.close()
         }
 
     }
 
     fun encryption(key: String, msg: String, output: String) {
-        val inputText = File(msg).readLines()
+        val inputText = File(msg).readLines().toString()
         val outputFile = File(output)
         val writer = BufferedWriter(FileWriter(outputFile, true))
-
         var keyItr = 0
-        for (i in 0 until inputText.size) {
+        for (i in 0 until inputText.length) {
             //Разделяем сетку по нескольким парам(xor операция)
             val temp = inputText[i].toInt() xor key[keyItr].toInt()
             writer.write(String.format("%02x", temp.toByte()))
@@ -56,14 +57,14 @@ class EncryptionXOR{
                 keyItr = 0
             }
         }
-
+        writer.close()
     }
 }
 fun main(args: Array<String>) {
     if (args[0] ==  "-d")  {
-        return  EncryptionXOR().decryption(args [1],args [2],args[4])
+        return EncryptionXOR().decryption(args [1],args [2],args[4])
     }
     if (args[0] ==  "-c")  {
-        return  EncryptionXOR().encryption(args [1],args [2],args[4])
+        return EncryptionXOR().encryption(args [1],args [2],args[4])
     }
 }

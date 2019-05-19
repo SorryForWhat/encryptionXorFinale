@@ -6,13 +6,13 @@ import java.lang.Exception
 import java.lang.IllegalArgumentException
 import kotlin.test.assertTrue
 
-//class Test {
-//    @Test
-//    fun encryptor(){
-//        EncryptionXOR.encryption("123a", "inputText.txt", "outputText.txt")
-//    }
-//    @Test
-//    fun decryptor(){
-//        decryption("123a", "outputText.txt", "inputText.txt")
-//    }
-//}
+class Test {
+    @Test
+    fun encryptor(){
+        EncryptionXOR().encryption("123a", "src/res/inputText.txt", "src/res/outputText.txt")
+    }
+    @Test
+    fun decryptor(){
+        EncryptionXOR().decryption("123a", "src/res/outputText.txt", "src/res/inputText.txt")
+    }
+}
